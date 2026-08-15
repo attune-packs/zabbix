@@ -1,0 +1,14 @@
+This product includes a substantially modified adaptation of ideas and action
+coverage from the StackStorm Exchange Zabbix pack, version 2.0.0, originally
+attributed to Hiroyasu OHYAMA with contributions from namachieli and other
+StackStorm Exchange contributors.
+
+Source: https://github.com/StackStorm-Exchange/stackstorm-zabbix
+Revision: 1b3ebdca44dab27c1a58ed11819a63d5b329d3f8
+Revision date: 2026-06-12
+License: Apache License 2.0
+
+The implementation, current API baseline, action selection, JSON-RPC client,
+credential handling, safety confirmations, polling sensor, tests, and Attune
+component metadata have been rewritten. The upstream repository did not
+contain a NOTICE file at the verified revision.

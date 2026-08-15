@@ -1,0 +1,18 @@
+ref: zabbix.host_group_update
+label: "Update Host Group"
+description: "Rename one host group by immutable ID"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  group_id: {type: string, required: true, pattern: "^[1-9][0-9]*$"}
+  name: {type: string, required: true, maxLength: 255}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, host-group, write]

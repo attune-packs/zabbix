@@ -1,0 +1,40 @@
+ref: zabbix
+label: "Zabbix"
+description: "Curated Zabbix 7.4 JSON-RPC integration with safe, Attune Key-backed operations"
+version: "0.1.0"
+author: "Attune; adapted from work by Hiroyasu OHYAMA, namachieli, and StackStorm Exchange contributors"
+email: "support@attune.systems"
+system: false
+enabled: true
+
+conf_schema: {}
+config: {}
+
+meta:
+  category: monitoring
+  documentation_url: "https://www.zabbix.com/documentation/current/en/manual/api"
+  repository_url: "https://github.com/attune-packs/zabbix"
+  source_repository: "https://github.com/StackStorm-Exchange/stackstorm-zabbix"
+  source_revision: "1b3ebdca44dab27c1a58ed11819a63d5b329d3f8"
+  source_version: "2.0.0"
+  api_baseline: "Zabbix 7.4.13"
+  api_baseline_revision: "3c95000629791258a59622e3e4e995df45c44453"
+  license: "Apache-2.0"
+
+tags: [zabbix, monitoring, json-rpc, events, integration]
+runtime_deps: [python]
+dependencies: []
+
+testing:
+  enabled: true
+  discovery:
+    method: directory
+    path: tests
+  runners:
+    python:
+      type: unittest
+      entry_point: tests/test_pack.py
+      timeout: 120
+      result_format: simple
+  min_pass_rate: 1.0
+  on_failure: block

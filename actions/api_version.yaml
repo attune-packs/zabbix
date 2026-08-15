@@ -1,0 +1,16 @@
+ref: zabbix.api_version
+label: "Get API Version"
+description: "Return the Zabbix API version without sending authentication to apiinfo.version"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, api, read]

@@ -1,0 +1,22 @@
+ref: zabbix.history_get
+label: "Get Item History"
+description: "Retrieve one Zabbix history value type for explicit item IDs and a bounded time range"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  item_ids: {type: array, required: true, minItems: 1, maxItems: 1000, items: {type: string}}
+  history_type: {type: integer, default: 0, minimum: 0, maximum: 5}
+  time_from: {type: integer, minimum: 0, maximum: 2147483647, description: "UTC Unix epoch seconds"}
+  time_till: {type: integer, minimum: 0, maximum: 2147483647, description: "UTC Unix epoch seconds"}
+  sort_order: {type: string, enum: [ASC, DESC], default: DESC}
+  limit: {type: integer, default: 100, minimum: 1, maximum: 1000}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, history, item, read]

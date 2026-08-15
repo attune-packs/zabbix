@@ -1,0 +1,22 @@
+ref: zabbix.problem_event
+label: "Zabbix Problem Event"
+description: "Emitted by the managed polling sensor for each new trigger problem event"
+enabled: true
+parameters:
+  credential_file: {type: string, required: true, pattern: "^/run/secrets/.+", description: "Sensor-local Zabbix profile JSON"}
+  checkpoint_file: {type: string, required: true, pattern: '^/var/lib/attune/zabbix/.+\.json$', description: "Unique durable checkpoint path for this rule"}
+  poll_interval_seconds: {type: integer, default: 30, minimum: 5, maximum: 300}
+  initial_lookback_seconds: {type: integer, default: 300, minimum: 0, maximum: 86400}
+  batch_size: {type: integer, default: 100, minimum: 1, maximum: 1000}
+  host_ids: {type: array, maxItems: 1000, items: {type: string}}
+output:
+  event_id: {type: string, required: true}
+  occurred_at: {type: integer, required: true}
+  trigger_id: {type: string, required: true}
+  name: {type: string, required: true}
+  severity: {type: integer, required: true}
+  acknowledged: {type: boolean, required: true}
+  hosts: {type: array, required: true}
+  tags: {type: array, required: true}
+  event: {type: object, required: true}
+tags: [zabbix, problem, event, polling]

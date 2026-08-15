@@ -1,0 +1,20 @@
+ref: zabbix.event_acknowledge
+label: "Acknowledge Event"
+description: "Acknowledge one event and optionally close it when manual close is supported"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  event_id: {type: string, required: true, pattern: "^[1-9][0-9]*$"}
+  message: {type: string, maxLength: 2048}
+  close: {type: boolean, default: false}
+  confirmation: {type: string, description: "For close, exactly CLOSE EVENT <event_id>"}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, event, acknowledge, write]

@@ -1,0 +1,24 @@
+ref: zabbix.maintenance_create
+label: "Create Maintenance Window"
+description: "Create a time-bounded maintenance window scoped to explicit host or group IDs"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  name: {type: string, required: true, maxLength: 128}
+  description: {type: string, maxLength: 2048}
+  active_since: {type: integer, required: true, minimum: 0, maximum: 4102444800, description: "UTC Unix epoch seconds"}
+  active_till: {type: integer, required: true, minimum: 0, maximum: 4102444800, description: "UTC Unix epoch seconds"}
+  maintenance_type: {type: integer, default: 0, minimum: 0, maximum: 1}
+  host_ids: {type: array, maxItems: 1000, items: {type: string}}
+  group_ids: {type: array, maxItems: 1000, items: {type: string}}
+  timeperiods: {type: array, required: true, minItems: 1, maxItems: 100, items: {type: object}}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, maintenance, write]

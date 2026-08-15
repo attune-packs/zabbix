@@ -1,0 +1,20 @@
+ref: zabbix.alert_list
+label: "List Alerts"
+description: "Retrieve alerts by event and bounded UTC epoch range"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  event_ids: {type: array, maxItems: 1000, items: {type: string}}
+  time_from: {type: integer, minimum: 0, maximum: 4102444800, description: "UTC Unix epoch seconds"}
+  time_till: {type: integer, minimum: 0, maximum: 4102444800, description: "UTC Unix epoch seconds"}
+  limit: {type: integer, default: 100, minimum: 1, maximum: 1000}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, alert, read]

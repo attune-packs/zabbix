@@ -1,0 +1,19 @@
+ref: zabbix.host_list
+label: "List Hosts"
+description: "List hosts with groups, templates, and interfaces using a bounded result set"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  search: {type: string, maxLength: 255}
+  group_ids: {type: array, items: {type: string}, maxItems: 1000}
+  limit: {type: integer, default: 100, minimum: 1, maximum: 1000}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, host, read]

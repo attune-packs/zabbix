@@ -1,0 +1,24 @@
+ref: zabbix.host_update
+label: "Update Host"
+description: "Update non-template, non-group host fields for exactly one host ID"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: zabbix_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: zabbix.credentials, required: true}
+  host_id: {type: string, required: true, pattern: "^[1-9][0-9]*$"}
+  host: {type: string, maxLength: 128}
+  visible_name: {type: string, maxLength: 128}
+  description: {type: string, maxLength: 2048}
+  monitored_by: {type: integer, minimum: 0, maximum: 2}
+  proxy_id: {type: string, pattern: "^[1-9][0-9]*$"}
+  proxy_group_id: {type: string, pattern: "^[1-9][0-9]*$"}
+  inventory_mode: {type: integer, minimum: -1, maximum: 1}
+  timeout_seconds: {type: integer, default: 30, minimum: 1, maximum: 120}
+output: {operation: {type: string}, request_id: {type: string}, data: {type: any}, meta: {type: object}}
+tags: [zabbix, host, write]

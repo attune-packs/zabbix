@@ -1,0 +1,12 @@
+ref: zabbix.problem_poll
+label: "Zabbix Problem Polling Sensor"
+description: "Polls trigger problem events with durable per-rule checkpoints and at-least-once delivery"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: problem_poll.py
+trigger_types: [zabbix.problem_event]
+poll_interval: 1
+log_retention_policy: versions
+log_retention_limit: 4
+tags: [zabbix, problem, polling, managed]
