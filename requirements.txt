@@ -1,2 +1,2 @@
-attune-sdk @ git+https://github.com/attune-system/python-attune-sdk.git@841298f132d9f6af6b7afc2f7091db1f3460b9c9
+attune-sdk>=0.3.0,<1.0.0
 requests>=2.32.0,<3.0.0
